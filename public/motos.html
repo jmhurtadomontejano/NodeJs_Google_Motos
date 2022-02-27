@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Concesionario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <style>
+            .buttons {
+                width: 40%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin: auto;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                padding: 5px;
+            }
+            .buttons button {
+                margin: 0 5px;
+            }
+            .buttons div {
+                width: 100%;
+                padding: 5px;
+                text-align: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .buttons input {
+                width: 30%;
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Concesionario de Motos</h1>
+        <!-- Button trigger modal -->
+        <div class="buttons">
+            <div>
+                <input type="number" class="form-control" id="idCargar" placeholder="ID">
+                <button id="btnCargar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#update">Cargar Moto</button>
+            </div>
+            <div>
+                <button id="btnMotos" type="button" class="btn btn-primary">Cargar Motos</button>
+                <button id="btnOpenInsert" type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert">Insertar Moto</button>
+                <button class="btn btn-primary" type="button" onclick="location.href = 'index.html'">Inicio</button>    
+            </div>
+        </div>
+
+        <!-- Modal insert -->
+        <div class="modal fade" id="insert" tabindex="-1" role="dialog" aria-labelledby="insertLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="insertLabel">Insertar Moto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formInsert" enctype="multipart/form-data" action="Save" method="post">
+                            <input type="hidden" id="action" name="action" value="insert">
+                            <div class="form-group">
+                                <label for="marcaInsert">Marca:</label>
+                                <input type="text" class="form-control" id="marcaInsert" aria-describedby="nombreInsert">
+                            </div>
+                            <div class="form-group">
+                                <label for="modeloInsert">Modelo:</label>
+                                <input type="text" class="form-control" id="modeloInsert" aria-describedby="modeloInsert">
+                            </div>
+                            <div class="form-group">
+                                <label for="cilindradaInsert">Cilindrada:</label>
+                                <input type="text" class="form-control" id="cilindradaInsert" aria-describedby="cilindradaInsert">
+                            </div>
+                            <div class="form-group">
+                                <label for="imagenInsert">Imagen:</label>
+                                <input type="file" id="imagenInsert" aria-describedby="imagenInsert" name="imagenInsert">                                
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnInsert" type="button" class="btn btn-primary" data-dismiss="modal">Insertar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal update -->
+        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateLabel">Actualizar moto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formUpdate" enctype="multipart/form-data" action="Save" method="post">
+                            <input type="hidden" id="idUpdate">
+                            <input type="hidden" id="action" name="action" value="update">
+                            <div class="form-group">
+                                <label for="marcaInsert">Marca:</label>
+                                <input type="text" class="form-control" id="marcaUpdate" name="marcaUpdate" aria-describedby="marcaUpdate">
+                            </div>
+                            <div class="form-group">
+                                <label for="modeloInsert">Modelo:</label>
+                                <input type="text" class="form-control" id="modeloUpdate" name="modeloUpdate" aria-describedby="modeloUpdate">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cilindradaInsert">Cilindrada:</label>
+                                <input type="number" class="form-control" id="cilindradaUpdate" aria-describedby="cilindradaUpdate">
+                            </div>
+                            <div class="form-group">
+                                <label for="imagenInsert">Imagen:</label>
+                                <input  type="file" id="imagenUpdate" name="imagenUpdate" aria-describedby="imagenUpdate" >
+                                <img id="imgUpdate" width="100" height="100"/>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnUpdate" type="submit" class="btn btn-primary" data-dismiss="modal">Actualizar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table id="tabla" class="table justify-content-center"></table>
+
+        <script>
+            document.getElementById("btnMotos").addEventListener('click', cargaMotos);
+            document.getElementById("btnCargar").addEventListener('click', cargaMoto);
+            document.getElementById("btnOpenInsert").addEventListener('click', clearInsert);
+            document.getElementById("btnInsert").addEventListener('click', insertMoto);
+            document.getElementById("btnUpdate").addEventListener('click', updateMoto);
+
+            function clearInsert() {
+                document.getElementById("marcaInsert").value = "";
+                document.getElementById("modeloInsert").value = "";
+                document.getElementById("cilindradaInsert").value = "";
+                document.getElementById("imagenInsert").value = "";
+
+            }
+
+            function cargaMoto() {
+                let id = document.getElementById("idCargar").value;
+                fetch('http://localhost:8080/Motos/webresources/generic/moto/' + id)
+                        .then(response => response.json())
+                        .then(json => {
+                            console.log(json);
+                            document.getElementById("idUpdate").value = json.id;
+                            document.getElementById("marcaUpdate").value = json.marca;
+                            document.getElementById("modeloUpdate").value = json.modelo;
+                            document.getElementById("cilindradaUpdate").value = json.cilindrada;
+                            document.getElementById("imagenUpdate").value = json.imagen;
+                            document.getElementById("img").src = "img/" + json.imagen;
+                        });
+            }
+
+            function cargaMotos() {
+                let tabla = document.getElementById("tabla");
+                fetch('http://localhost:8080/Motos/webresources/generic/motos/')
+                        .then(response => response.json())
+                        .then(json => {
+                            console.log(json);
+
+                            while (tabla.firstChild) {
+                                tabla.removeChild(tabla.firstChild);
+                            }
+
+                            // Cols
+                            let fila = document.createElement("tr");
+                            let celdaId = document.createElement("th");
+                            celdaId.textContent = "ID";
+                            let celdaMarca = document.createElement("th");
+                            celdaMarca.textContent = "MARCA";
+                            let celdaModelo = document.createElement("th");
+                            celdaModelo.textContent = "MODELO";
+                            let celdaCilindrada = document.createElement("th");
+                            celdaCilindrada.textContent = "CILINDRADA";
+                            let celdaImagen = document.createElement("th");
+                            celdaImagen.textContent = "IMAGEN";
+                            
+                            let celdaOpciones = document.createElement("th");
+                            celdaOpciones.textContent = "OPCIONES";
+                            fila.appendChild(celdaId);
+                            fila.appendChild(celdaMarca);
+                            fila.appendChild(celdaModelo);
+                            fila.appendChild(celdaCilindrada);
+                            fila.appendChild(celdaImagen);
+                            fila.appendChild(celdaOpciones);
+                            tabla.appendChild(fila);
+
+                            // Rows
+                            for (i = 0; i <= json.length; i++) {
+                                let fila = document.createElement("tr");
+                                let celdaId = document.createElement("td");
+                                celdaId.textContent = json[i].id;
+                                let celdaMarca = document.createElement("td");
+                                celdaMarca.textContent = json[i].marca;
+                                let celdaModelo = document.createElement("td");
+                                celdaModelo.textContent = json[i].modelo;
+                                let celdaCilindrada = document.createElement("td");
+                                celdaCilindrada.textContent = json[i].cilindrada + "cc";
+                                let celdaImagen = document.createElement("td");
+                                //Creamos la etiqueta imagen
+                                let img = document.createElement("img");
+                                img.src = "img/" + json[i].imagen;
+                                celdaImagen.appendChild(img);
+                                //Fijamos el tamaño de la imagen.
+                                img.width = 100;
+                                img.height = 100;
+                                //Cuando la imagen no exista en la carpeta, mostrará un mensaje
+                                img.alt = "Imagen no encontrada";
+                                
+                                //Texto plano en la página mostrando el nombre de la foto.
+                                let text = document.createElement("p");
+                                text.textContent = json[i].imagen;
+                                celdaImagen.appendChild(text);
+                                
+                                let btnUpdate = document.createElement("button");
+                                btnUpdate.textContent = "Actualizar";
+                                btnUpdate.className = "btn-primary";
+                                btnUpdate.setAttribute("data-toggle", "modal");
+                                btnUpdate.setAttribute("data-target", "#update");
+                                btnUpdate.setAttribute("onclick", "openUpdate(" + json[i].id + ")");
+                                let btnDelete = document.createElement("button");
+                                btnDelete.textContent = "Borrar";
+                                btnDelete.className = "btn-danger";
+                                btnDelete.setAttribute("onclick", "return borrarMoto(" + json[i].id + ")");
+                                let celdaOpciones = document.createElement("td");
+                                celdaOpciones.appendChild(btnUpdate);
+                                celdaOpciones.appendChild(btnDelete);
+                                fila.appendChild(celdaId);
+                                fila.appendChild(celdaMarca);
+                                fila.appendChild(celdaModelo);
+                                fila.appendChild(celdaCilindrada);
+                                fila.appendChild(celdaImagen);
+                                fila.appendChild(celdaOpciones);
+                                tabla.appendChild(fila);
+                            }
+
+                        });
+            }
+
+            function insertMoto() {
+                fetch('http://localhost:8080/Motos/webresources/generic/moto/', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        marca: document.getElementById("marcaInsert").value,
+                        modelo: document.getElementById("modeloInsert").value,
+                        cilindrada: document.getElementById("cilindradaInsert").value,
+                        imagen: document.getElementById("imagenInsert").value
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                })
+                        .then((response) => response.json())
+                        .then((json) => cargaMotos());
+                
+                //Enviamos el formulario que tenemos en la vista para insertar y tratar el archivo.
+                document.forms['formInsert'].submit();
+
+            }
+
+            function borrarMoto(id) {
+                if (confirm("¿Está seguro/a de que quiere eliminar la moto?")) {
+                    fetch('http://localhost:8080/Motos/webresources/generic/moto/' + id, {
+                        method: 'DELETE'
+                    });
+                    cargaMotos();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function openUpdate(id) {
+                fetch('http://localhost:8080/Motos/webresources/generic/moto/' + id)
+                        .then(response => response.json())
+                        .then(json => {
+                            console.log(json);
+                            document.getElementById("imgUpdate").src = "img/" + json.imagen;
+                            document.getElementById("idUpdate").value = id;
+                            document.getElementById("marcaUpdate").value = json.marca;
+                            document.getElementById("modeloUpdate").value = json.modelo;
+                            document.getElementById("cilindradaUpdate").value = json.cilindrada;
+                            document.getElementById("imagenUpdate").value = json.imagen;
+
+                        });
+            }
+
+            function  updateMoto() {
+
+                var form = fetch('http://localhost:8080/Motos/webresources/generic/moto/', {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: document.getElementById("idUpdate").value,
+                        marca: document.getElementById("marcaUpdate").value,
+                        modelo: document.getElementById("modeloUpdate").value,
+                        cilindrada: document.getElementById("cilindradaUpdate").value,
+                        imagen: document.getElementById("imagenUpdate").value
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                })
+                        .then((response) => response.json())
+                        .then((json) => cargaMotos());
+                //Enviamos el formulario que tenemos en la vista para actualizar y tratar el archivo
+                document.forms['formUpdate'].submit();
+            }
+        </script>
+    </body>
+</html>
