@@ -266,6 +266,67 @@ class Server {
         });
       }
     );
+
+
+      /******* RUTAS DE LAS MOTOS *****/
+      this.app.get(
+        "/webresources/generic/motos/:id",
+  
+        async function (req, res) {
+          const id = req.params.id;
+          let moto = await Moto.findById(id);
+          res.json(moto);
+        }
+      );
+      this.app.get(
+        "/webresources/generic/motos",
+        validarJWT,
+        async function (req, res) {
+          let motos = await Moto.find();
+          res.json(
+            motos
+            //[{"marca":"honda","modelo":"CBR-2500","cilindrada":"2500","precio":3999, "imagen":"/public/imagenes/13_CBR250R_Repsol.jpg"},
+          );
+        }
+      );
+      this.app.post("/webresources/generic/motos", function (req, res) {
+        const body = req.body;
+        let miMoto = new Moto(body);
+        miMoto.save();
+        res.json({
+          ok: true,
+          msg: "post API motos",
+          miMoto,
+        });
+      });
+      //put-motos
+      this.app.put(
+        "/webresources/generic/motos/:id",
+        async function (req, res) {
+          const body = req.body;
+          const id = req.params.id;
+          await Moto.findByIdAndUpdate(id, body);
+          res.json({
+            ok: true,
+            msg: "post API motos",
+            body,
+          });
+        }
+      );
+      //delete motos
+      this.app.delete(
+        "/webresources/generic/motos/:id",
+        async function (req, res) {
+          const id = req.params.id;
+          await Moto.findByIdAndDelete(id);
+          res.status(200).json({
+            ok: true,
+            msg: "delete API",
+          });
+        }
+      );
+
+
     /******* RUTAS DEL USUARIO */
     this.app.get("/", function (req, res) { });
     this.app.get("/api", async function (req, res) {

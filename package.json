@@ -22,11 +22,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jlbandujar/servidor-nodejs.git"
+    "url": "git+https://github.com/jmhurtadomontejano/NodeJs_Google_Motos.git"
   },
   "bugs": {
-    "url": "https://github.com/jlbandujar/servidor-nodejs/issues"
+    "url": "https://github.com/jmhurtadomontejano/NodeJs_Google_Motos.git/issues"
   },
-  "homepage": "https://github.com/jlbandujar/servidor-nodejs#readme",
+  "homepage": "https://github.com/jmhurtadomontejano/NodeJs_Google_Motos.git#readme",
   "description": ""
 }
