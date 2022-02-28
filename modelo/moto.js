@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ProductoSchema = mongoose.Schema(
+const MotoSchema = mongoose.Schema(
 {
     marca: {
         type:String,

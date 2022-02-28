@@ -86,7 +86,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             
             
            function cargaProductos(){
-           alert(getAbsolutePath());
            let tabla=document.getElementById("tablaProductos");
            fetch(getAbsolutePath()+'webresources/generic/productos/')
                 .then(response => response.json())
@@ -96,7 +95,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     tabla.removeChild(tabla.firstChild);
                 }
                 //recorre todos los productos del array de productos
-                for ( i=0;i<=json.length;i++){
+                for ( i=0;i<json.length;i++){
                      //document.getElementById("divProductos").innerHTML+=json[i].nombre;
                      let fila=document.createElement("tr");
                      let celdaId=document.createElement("td");
@@ -186,7 +185,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
          }
          
          function insertaProducto(){
-              fetch(getAbsolutePath()+'webresources/generic/producto/', {
+              fetch(getAbsolutePath()+'webresources/generic/productos/', {
              method: 'POST',
              body: JSON.stringify({
                nombre: document.getElementById("nombre").value,

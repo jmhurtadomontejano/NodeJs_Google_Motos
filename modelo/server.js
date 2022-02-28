@@ -4,6 +4,7 @@ const { dbConnection } = require("../database/config");
 const Usuario = require("./usuario");
 const Producto = require("./producto");
 const Rol = require("./rol");
+const Moto = require("./Moto");
 const bcryptjs = require("bcryptjs");
 const { body, validationResult, check } = require("express-validator");
 const { generarJWT } = require("../helpers/generarJWT");
@@ -47,12 +48,14 @@ class Server {
           })
         }
         //Esperamos un archivo con el nombre de "archivo"
-        if (!req.files.archivo) {
+        if (!req.files) {
           res.status(400).json({
             msg: "NO se ha mandado 'archivo'"
           });
         } else {//SI SE HA ENVIADO EL ARCHIVO
-
+          res.json({
+                msg:req.files,
+              });
           const archivo = req.files.archivo;
           /*nombreCortado será un array de trozos separados(split) por puntos punto 7.1 Jose Luis*/
           const nombreCortado = archivo.name.split(".");
@@ -74,12 +77,7 @@ class Server {
           const uploadPath = path.join(__dirname, "../public/imagenes/", nombreTemp);
           archivo.mv(uploadPath, function (err){
             if (err) return res.status(500).json(err);
-            res.json({
-              msg:"Archivo subido con éxito",
-              extension,
-              uploadPath,
-              archivo,
-            });
+            
           });
 
         }
@@ -221,7 +219,6 @@ class Server {
     );
     this.app.get(
       "/webresources/generic/productos",
-      validarJWT,
       async function (req, res) {
         let productos = await Producto.find();
         res.json(
@@ -280,7 +277,6 @@ class Server {
       );
       this.app.get(
         "/webresources/generic/motos",
-        validarJWT,
         async function (req, res) {
           let motos = await Moto.find();
           res.json(
@@ -290,13 +286,42 @@ class Server {
         }
       );
       this.app.post("/webresources/generic/motos", function (req, res) {
+        const archivo = req.files.imagen;
+          /*nombreCortado será un array de trozos separados(split) por puntos punto 7.1 Jose Luis*/
+          const nombreCortado = archivo.name.split(".");
+          /*En la siguiente variable guardo el ultimo trozo del array nombreCortado punto 7.1 Jose Luis */
+          const extension = nombreCortado[nombreCortado.length - 1];
+
+          //Validar la extensión punto 7.1 Jose Luis
+          const extensionesValidas = ['jpg','png','jpeg','gif'];
+          if(!extensionesValidas.includes(extension)){
+            return res.status(400).json({
+              msg: `La extensión ${extension} no está permitida, solo se permiten: ${extensionesValidas}`
+            })
+          }
+
+
+          const nombreTemp = uuidv4() + "." + extension;
+          const path = require("path"); //esto es de nodejs
+         
+          const uploadPath = path.join(__dirname, "../public/imagenes/", nombreTemp);
+          archivo.mv(uploadPath, function (err){
+            if (err) return res.status(500).json(err);
+            
+          });
         const body = req.body;
-        let miMoto = new Moto(body);
-        miMoto.save();
+        let moto = {
+          marca: body.marca,
+          modelo: body.modelo,
+          cilindrada: body.cilindrada,
+          precio: 0,
+          imagen: uploadPath,
+        }
+       let miMoto = new Moto(moto);
+         miMoto.save();
         res.json({
           ok: true,
           msg: "post API motos",
-          miMoto,
         });
       });
       //put-motos
