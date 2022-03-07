@@ -32,6 +32,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
     />
 
+      <!-- CSS PROPIO EN PUBLIC/CSS/STYLE.CSS-->
+      <link rel="stylesheet" href="css/style.css" />
     <style>
       .buttons {
         width: 40%;
@@ -66,97 +68,98 @@
     <h1 class="">Concesionario de Motos</h1>
     <!-- Start Menu HTML -->
     <nav
-      class="navbar navbar-expand-lg navbar navbar-light"
-      style="background-color: #f3c1ed"
-    >
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"
-          ><span class="badge bg-primary">INDEX</span></a
-        >
-        <button
-          class="navbar-toggler collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbar-content"
-        >
-          <div class="hamburger-toggle">
-            MENU
-            <i class="fas fa-motorcycle" style="font-size: 30px"></i>
-            <div class="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-content">
-          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-            <li>
-              <i class="fas fa-motorcycle" style="font-size: 50px"></i>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="motos.html"
-                >Motos</a
+    class="navbar navbar-expand-lg navbar navbar-light"
+    style="background-color: #ac93d2"
+  >
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+      
+         <h2> INDEX</h2>
+        </a
+      >
+      <button
+        class="navbar-toggler collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbar-content"
+      >
+          MENU
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-content">
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+          <li>
+            
+          </li>
+          <li class="nav-item">
+            
+            <!--  <button class="m-2 btn-primary" style="background-color: blueviolet; border:2px solid black; hover:#AC93D2">-->
+            <a class="nav-link active d-flex" aria-current="page" href="motos.html"
               >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="productos.html">Productos</a>
-            </li>
-          </ul>
-          <form class="d-flex ms-auto">
-            <script
-              src="https://accounts.google.com/gsi/client"
-              async
-              defer
-            ></script>
-            <div
-              id="g_id_onload"
-              data-client_id="268016406036-a9c9r09qt2d08jll5v8ejgslpj7bs6v1.apps.googleusercontent.com"
-              data-auto_prompt="false"
-              data-callback="handleCredentialResponse"
-            ></div>
-            <div
-              class="g_id_signin"
-              data-type="standard"
-              data-size="large"
-              data-theme="outline"
-              data-text="sign_in_with"
-              data-shape="rectangular"
-              data-logo_alignment="left"
-            ></div>
-            <button id="cerrar-sesion-google">Cerrar Sesión</button>
-            <script>
-              var boton = document.getElementById("cerrar-sesion-google");
-              boton.addEventListener("click", function () {
-                google.accounts.id.disableAutoSelect();
-                google.accounts.id.revoke(localStorage.getItem("email"));
-                localStorage.clear();
-                location.reload();
-              });
-              function handleCredentialResponse(response) {
-                // decodeJwtResponse() is a custom function defined by you
-                // to decode the credential response.
-                console.log(response.credential);
-                const body = { id_token: response.credential };
-                fetch("http://localhost:90/google", {
-                  method: "POST",
-                  body: JSON.stringify(body),
-                  headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                  },
-                })
-                  .then((response) => response.json())
-                  .then((json) => {
-                    console.log(json);
-                    localStorage.setItem("email", json.miusuario.correo);
-                  });
-              }
-            </script>
-          </form>
-        </div>
+              <i class="fas fa-motorcycle align-middle" style="font-size: 30px"></i>
+              <h2>Motos</h2>
+              </a
+            >
+            <!-- </button> -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="productos.html">
+              <h2>Productos</h2></a>
+          </li>
+        </ul>
+        <form class="nav-item d-flex ms-auto">
+          <script
+            src="https://accounts.google.com/gsi/client"
+            async
+            defer
+          ></script>
+          <div
+            id="g_id_onload"
+            data-client_id="268016406036-a9c9r09qt2d08jll5v8ejgslpj7bs6v1.apps.googleusercontent.com"
+            data-auto_prompt="false"
+            data-callback="handleCredentialResponse"
+          ></div>
+          <div
+            class="g_id_signin"
+            data-type="standard"
+            data-size="large"
+            data-theme="outline"
+            data-text="sign_in_with"
+            data-shape="rectangular"
+            data-logo_alignment="left"
+          ></div>
+          <button id="nav-item cerrar-sesion-google">Cerrar Sesión</button>
+          <script>
+            var boton = document.getElementById("cerrar-sesion-google");
+            boton.addEventListener("click", function () {
+              google.accounts.id.disableAutoSelect();
+              google.accounts.id.revoke(localStorage.getItem("email"));
+              localStorage.clear();
+              location.reload();
+            });
+            function handleCredentialResponse(response) {
+              // decodeJwtResponse() is a custom function defined by you
+              // to decode the credential response.
+              console.log(response.credential);
+              const body = { id_token: response.credential };
+              fetch("http://localhost:90/google", {
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                },
+              })
+                .then((response) => response.json())
+                .then((json) => {
+                  console.log(json);
+                  localStorage.setItem("email", json.miusuario.correo);
+                });
+            }
+          </script>
+        </form>
       </div>
-    </nav>
-    <!-- END Mega Menu HTML -->
+    </div>
+  </nav>
+  <!-- END Mega Menu HTML -->
   </header>
   <body>
     <div class="d-flex flex-wrap justify-content-around display col-12">
@@ -582,5 +585,14 @@
         }
       });
     </script>
+
+<script>
+  document.addEventListener("click", function (e) {
+    // Hamburger menu
+    if (e.target.classList.contains("hamburger-toggle")) {
+      e.target.children[0].classList.toggle("active");
+    }
+  });
+</script>
   </body>
 </html>

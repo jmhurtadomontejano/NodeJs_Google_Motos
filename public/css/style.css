@@ -1,0 +1,16 @@
+*{
+    background-image: imagenes/tienda.jpg;
+}
+
+.nav-link:hover, .navbar-brand:hover, .btn-primary:hover{
+    background-color: rgb(210, 150, 223);
+}
+
+.g_id_signin:hover{
+    background-color: rgb(210, 150, 223);
+}
+
+.btn-primary{
+        background-color: #ac93d2;
+        
+}
