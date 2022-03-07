@@ -124,11 +124,13 @@
           <!-- END Mega Menu HTML -->
         </main>
   
-        
+        <section class="banner-moto">
+          <div class="banner-content-moto">
     <div class="d-flex flex-wrap justify-content-around display col-12">
         <div  class="col-5 m-1 col-sm-2">
             <input
-                type="text"
+               
+                type="number"
                 class="form-control"
                 id="idCargar"
                 placeholder="ID"
@@ -162,7 +164,8 @@
       >
         Insertar Moto
       </button>
-
+    </div>
+  </section>
 
     <!-- Modal insert -->
     <div
@@ -363,7 +366,7 @@
 
       function cargaMoto() {
         let id = document.getElementById("idCargar").value;
-        fetch("http://localhost:3000/webresources/generic/motos/" + id)
+        fetch("http://localhost:3000/webresources/generic/moto/" + id)
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -444,15 +447,14 @@
               btnUpdate.setAttribute("data-target", "#update");
               btnUpdate.setAttribute(
                 "onclick",
-                "openUpdate('" + json[i].id + "')"
+                "openUpdate(" + json[i].id + ")"
               );
-              console.log("Control de ID: "+json[i].id);
               let btnDelete = document.createElement("button");
               btnDelete.textContent = "Borrar";
               btnDelete.className = "btn-danger";
               btnDelete.setAttribute(
                 "onclick",
-                "return borrarMoto('" + json[i].id + "')"
+                "return borrarMoto(" + json[i].id + ")"
               );
               let celdaOpciones = document.createElement("td");
               celdaOpciones.appendChild(btnUpdate);
@@ -470,6 +472,7 @@
 
       function insertMoto() {
         //FormData
+
         const marca = document.getElementById("marcaInsert");
         const modelo = document.getElementById("modeloInsert");
         const cilindrada = document.getElementById("cilindradaInsert");
@@ -494,7 +497,7 @@
 
       function borrarMoto(id) {
         if (confirm("¿Está seguro/a de que quiere eliminar la moto?")) {
-          fetch("http://localhost:3000/webresources/generic/motos/" + id, {
+          fetch("http://localhost:3000/webresources/generic/moto/" + id, {
             method: "DELETE",
           });
           cargaMotos();
@@ -505,7 +508,7 @@
       }
 
       function openUpdate(id) {
-        fetch("http://localhost:3000/webresources/generic/motos/" + id)
+        fetch("http://localhost:3000/webresources/generic/moto/" + id)
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -519,7 +522,7 @@
       }
 
       function updateMoto() {
-        var form = fetch("http://localhost:3000/webresources/generic/motos/", {
+        var form = fetch("http://localhost:3000/webresources/generic/moto/", {
           method: "PUT",
           body: JSON.stringify({
             id: document.getElementById("idUpdate").value,

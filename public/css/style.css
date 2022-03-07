@@ -1,7 +1,3 @@
-*{
-    background-image: imagenes/tienda.jpg;
-}
-
 .nav-link:hover, .navbar-brand:hover, .btn-primary:hover{
     background-color: rgb(210, 150, 223);
 }
@@ -11,6 +7,73 @@
 }
 
 .btn-primary{
-        background-color: #ac93d2;
-        
+        background-color: #ac93d2;      
+}
+
+.banner, .banner-moto{
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 56px);
+    background-color: #F5F5F5;
+    background-size: cover;
+    background-position: center;
+    transition: all .1s ease-in-out;
+    background-image: url('../imagenes/tienda.jpg');
+    opacity: 0.8;
+    color:white;
+}
+
+.banner-content{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: #FFF;
+    background-color: rgba(0,22,40,.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-content-moto{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: #FFF;
+    background-color: rgba(0,22,40,.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-content h1{
+    margin:0;
+    padding: 0;
+    padding-bottom: 10px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.banner-content h4{
+    margin:0;
+    padding: 0;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.banner-content a{
+    text-decoration: none;
+    color: #FFF;
+    padding: 9px 20px;
+    border: 1px solid #FFF;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}
+
+.banner-content a:hover{
+    background-color: rgb(210, 150, 223);
+    color: #000;
+    font-weight: bold;
 }
