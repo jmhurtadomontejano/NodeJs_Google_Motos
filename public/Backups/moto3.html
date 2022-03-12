@@ -1,160 +1,247 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Concesionario</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!DOCTYPE html>
-  <html lang="en">
-
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NODEJS MOTOS Y LOGIN DE GOOGLE</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    <title>Concesionario</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>NODEJS MOTOS Y LOGIN DE GOOGLE</title>
+        <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+      crossorigin="anonymous"
+    ></script>
 
-    <!-- Google Fonts -->
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&amp;display=swap" />
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
-    <!-- CSS PROPIO EN PUBLIC/CSS/STYLE.CSS-->
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
 
-<body>
-  <main>
-    <!-- Start Menu HTML -->
-    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #AC93D2;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
-          <h2> INDEX</h2>
-        </a>
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbar-content">
-          <div class="hamburger-toggle">MENU
-
-            <div class="hamburger">
-
-            </div>
-          </div>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-content">
-          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-
-            <li class="nav-item">
-              <a class="nav-link d-flex" aria-current="page" href="motos.html">
-                <i class="fas fa-motorcycle align-middle" style="font-size: 30px"></i>
-                <h2>Motos</h2>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex" href="productos.html">
-                <i class="fab fa-product-hunt"></i>
-                <h2>Productos</h2>
-              </a>
-            </li>
-          </ul>
-          <div class="d-flex ms-auto">
-            <div class="fadeIn first">
-              <h2>Login</h2>
-              <input type="email" id="email" class="fadeIn second w-100" name="email" placeholder="email">
-              <input type="password" id="password" class="fadeIn third w-100" name="password" placeholder="password">
-              <div class="w-100">
-                <button id="btnLogin" class="fadeIn fourth w-100">Login</button>
+      <!-- CSS PROPIO EN PUBLIC/CSS/STYLE.CSS-->
+      <link rel="stylesheet" href="css/style.css" />
+      </head>
+      <body>
+        <main>
+          <!-- Start Menu HTML -->
+          <nav
+            class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #AC93D2;"
+          >
+            <div class="container-fluid p-0 m-0">
+              <a class="navbar-brand" href="index.html"
+                ><h2> INDEX</h2></a
+              >
+              <button
+                class="navbar-toggler collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbar-content"
+              >
+                <div class="hamburger-toggle">MENU
+                
+                  <div class="hamburger">
+                  
+                  </div>
+                </div>
+              </button>
+              <div class="collapse navbar-collapse" id="navbar-content">
+                <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+              
+                  <li class="nav-item">
+                    <a class="nav-link active d-flex" aria-current="page" href="motos.html"
+                  >
+                  <i class="fas fa-motorcycle align-middle" style="font-size: 30px"></i>
+                  <h2>Motos</h2>
+                  </a
+                >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link d-flex" href="productos.html">
+                      <i class="fab fa-product-hunt"></i>
+                      <h2>Productos</h2></a>
+                  </li>
+                </ul>
+                <form class="d-flex ms-auto">
+                    <script src="https://accounts.google.com/gsi/client" async defer></script>
+                    <div id="g_id_onload" data-client_id="268016406036-a9c9r09qt2d08jll5v8ejgslpj7bs6v1.apps.googleusercontent.com"
+                        data-auto_prompt="false" data-callback="handleCredentialResponse">
+                    </div>
+                    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+                        data-shape="rectangular" data-logo_alignment="left">
+                    </div>
+                    <button id="cerrar-sesion-google">Cerrar Sesión</button>
+                    <script>
+                        var boton = document.getElementById("cerrar-sesion-google");
+                        boton.addEventListener("click", function () {
+                            google.accounts.id.disableAutoSelect();
+                            google.accounts.id.revoke(localStorage.getItem("email"));
+                            localStorage.clear();
+                            location.reload();
+                        })
+                        function handleCredentialResponse(response) {
+                            // decodeJwtResponse() is a custom function defined by you
+                            // to decode the credential response.
+                            console.log(response.credential);
+                            const body = { 'id_token': response.credential }
+                            fetch('http://localhost:3000/google', {
+                                method: 'POST',
+                                body: JSON.stringify(body),
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8',
+                                },
+                            })
+                                .then((response) => response.json())
+                                .then((json) => {
+                                    console.log(json);
+                                    localStorage.setItem("email",json.miusuario.correo)
+                                });
+                        }
+                    </script>
+                </form>
               </div>
             </div>
-
-            <form class="card-footer ms-auto">
-              <script src="https://accounts.google.com/gsi/client" async defer></script>
-              <div id="g_id_onload"
-                data-client_id="268016406036-a9c9r09qt2d08jll5v8ejgslpj7bs6v1.apps.googleusercontent.com"
-                data-auto_prompt="false" data-callback="handleCredentialResponse">
-              </div>
-              <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
-                data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
-              </div>
-              <button id="cerrar-sesion-google" class="w-100">Cerrar Sesión</button>
-            </form>
-          </div>
-
+          </nav>
+          <!-- END Mega Menu HTML -->
+        </main>
+  
+        <section class="banner-moto">
+          <div class="banner-content-moto">
+    <div class="d-flex flex-wrap justify-content-around display col-12">
+        <div  class="col-5 m-1 col-sm-2">
+            <input
+               
+                type="number"
+                class="form-control"
+                id="idCargar"
+                placeholder="ID"
+            />
+                <button
+                class="btn-primary justify-content"
+                id="btnCargar"
+                type="button"
+                data-toggle="modal"
+                data-target="#update"
+            >
+                Cargar Moto ID
+            </button>
         </div>
-      </div>
-    </nav>
-    <!-- END Mega Menu HTML -->
-  </main>
+      <button
+        class="btn-primary col-5 m-1 col-sm-2"
+        id="btnMotos"
+        type="button"
+        class="btn-primary col-5 m-1 col-sm-2"
+      >
+        Cargar Motos
+      </button>
 
-
-  <div class="d-flex flex-wrap justify-content-around display col-12">
-    <button class="btn-primary col-5 m-1 col-sm-2" id="btnOpenInsert" type="button" class="btn btn-primary"
-      data-toggle="modal" data-target="#insert">
-      Insertar Moto
-    </button>
-
-    <button class="btn-primary col-5 m-1 col-sm-2" id="btnMotos" type="button" class="btn-primary col-5 m-1 col-sm-2">
-      Cargar Motos
-    </button>
-
-    <div class="col-5 m-1 col-sm-2">
-      <input type="text" class="form-control" id="idCargar" placeholder="ID" />
-      <button class="btn-primary justify-content" id="btnCargar" type="button" data-toggle="modal"
-        data-target="#update">
-        Cargar Moto ID
+      <button
+        class="btn-primary col-5 m-1 col-sm-2"
+        id="btnOpenInsert"
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#insert"
+      >
+        Insertar Moto
       </button>
     </div>
-
+  </section>
 
     <!-- Modal insert -->
-    <div class="modal fade" id="insert" tabindex="-1" role="dialog" aria-labelledby="insertLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="insert"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="insertLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="insertLabel">Insertar Moto</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form id="formInsert" enctype="multipart/form-data" action="Save" method="post">
+            <form
+              id="formInsert"
+              enctype="multipart/form-data"
+              action="Save"
+              method="post"
+            >
               <input type="hidden" id="action" name="action" value="insert" />
               <div class="form-group">
                 <label for="marcaInsert">Marca:</label>
-                <input type="text" class="form-control" id="marcaInsert" aria-describedby="nombreInsert" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="marcaInsert"
+                  aria-describedby="nombreInsert"
+                />
               </div>
               <div class="form-group">
                 <label for="modeloInsert">Modelo:</label>
-                <input type="text" class="form-control" id="modeloInsert" aria-describedby="modeloInsert" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="modeloInsert"
+                  aria-describedby="modeloInsert"
+                />
               </div>
               <div class="form-group">
                 <label for="cilindradaInsert">Cilindrada:</label>
-                <input type="text" class="form-control" id="cilindradaInsert" aria-describedby="cilindradaInsert" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cilindradaInsert"
+                  aria-describedby="cilindradaInsert"
+                />
               </div>
               <div class="form-group">
                 <label for="imagenInsert">Imagen:</label>
-                <input type="file" id="imagenInsert" aria-describedby="imagenInsert" name="imagenInsert" />
+                <input
+                  type="file"
+                  id="imagenInsert"
+                  aria-describedby="imagenInsert"
+                  name="imagenInsert"
+                />
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button id="btnInsert" type="button" class="btn btn-primary" data-dismiss="modal">
+            <button
+              id="btnInsert"
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
               Insertar
             </button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -166,43 +253,85 @@
     </div>
 
     <!-- Modal update -->
-    <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="update"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="updateLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="updateLabel">Actualizar moto</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form id="formUpdate" enctype="multipart/form-data" action="Save" method="post">
+            <form
+              id="formUpdate"
+              enctype="multipart/form-data"
+              action="Save"
+              method="post"
+            >
               <input type="hidden" id="idUpdate" />
-              <input type="hidden" id="actionUpdate" name="actionUpdate" value="update" />
+              <input type="hidden" id="action" name="action" value="update" />
               <div class="form-group">
                 <label for="marcaInsert">Marca:</label>
-                <input type="text" class="form-control" id="marcaUpdate" name="marcaUpdate"
-                  aria-describedby="marcaUpdate" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="marcaUpdate"
+                  name="marcaUpdate"
+                  aria-describedby="marcaUpdate"
+                />
               </div>
               <div class="form-group">
                 <label for="modeloInsert">Modelo:</label>
-                <input type="text" class="form-control" id="modeloUpdate" name="modeloUpdate"
-                  aria-describedby="modeloUpdate" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="modeloUpdate"
+                  name="modeloUpdate"
+                  aria-describedby="modeloUpdate"
+                />
               </div>
 
               <div class="form-group">
                 <label for="cilindradaInsert">Cilindrada:</label>
-                <input type="number" class="form-control" id="cilindradaUpdate" aria-describedby="cilindradaUpdate" />
+                <input
+                  type="number"
+                  class="form-control"
+                  id="cilindradaUpdate"
+                  aria-describedby="cilindradaUpdate"
+                />
               </div>
               <div class="form-group">
                 <label for="imagenInsert">Imagen:</label>
-                <input type="file" id="imagenUpdate" name="imagenUpdate" aria-describedby="imagenUpdate" />
+                <input
+                  type="file"
+                  id="imagenUpdate"
+                  name="imagenUpdate"
+                  aria-describedby="imagenUpdate"
+                />
                 <img id="imgUpdate" width="100" height="100" />
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button id="btnUpdate" type="submit" class="btn btn-primary" data-dismiss="modal">
+            <button
+              id="btnUpdate"
+              type="submit"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
               Actualizar
             </button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -216,7 +345,6 @@
     <table id="tabla" class="table justify-content-center"></table>
 
     <script>
-      const token = localStorage.getItem('token');
       document.getElementById("btnMotos").addEventListener("click", cargaMotos);
       document.getElementById("btnCargar").addEventListener("click", cargaMoto);
       document
@@ -238,7 +366,7 @@
 
       function cargaMoto() {
         let id = document.getElementById("idCargar").value;
-        fetch("http://localhost:3000/webresources/generic/motos/" + id)
+        fetch("http://localhost:3000/webresources/generic/moto/" + id)
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -319,15 +447,14 @@
               btnUpdate.setAttribute("data-target", "#update");
               btnUpdate.setAttribute(
                 "onclick",
-                "openUpdate('" + json[i].id + "')"
+                "openUpdate(" + json[i].id + ")"
               );
-              console.log("Control de ID: " + json[i].id);
               let btnDelete = document.createElement("button");
               btnDelete.textContent = "Borrar";
               btnDelete.className = "btn-danger";
               btnDelete.setAttribute(
                 "onclick",
-                "return borrarMoto('" + json[i].id + "')"
+                "return borrarMoto(" + json[i].id + ")"
               );
               let celdaOpciones = document.createElement("td");
               celdaOpciones.appendChild(btnUpdate);
@@ -345,6 +472,7 @@
 
       function insertMoto() {
         //FormData
+
         const marca = document.getElementById("marcaInsert");
         const modelo = document.getElementById("modeloInsert");
         const cilindrada = document.getElementById("cilindradaInsert");
@@ -356,7 +484,7 @@
         for (let i = 0; i < imagen.files.length; i++) {
           formData.append("imagen", imagen.files[i]);
         }
-        fetch(getAbsolutePath() + 'webresources/generic/motos/', {
+        fetch("http://localhost:3000/webresources/generic/motos/", {
           method: "post",
           body: formData,
         })
@@ -369,7 +497,7 @@
 
       function borrarMoto(id) {
         if (confirm("¿Está seguro/a de que quiere eliminar la moto?")) {
-            fetch(getAbsolutePath() + 'webresources/generic/motos/' + id, {
+          fetch("http://localhost:3000/webresources/generic/moto/" + id, {
             method: "DELETE",
           });
           cargaMotos();
@@ -380,7 +508,7 @@
       }
 
       function openUpdate(id) {
-        fetch("http://localhost:3000/webresources/generic/motos/" + id)
+        fetch("http://localhost:3000/webresources/generic/moto/" + id)
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -394,7 +522,7 @@
       }
 
       function updateMoto() {
-        var form = fetch("http://localhost:3000/webresources/generic/motos/", {
+        var form = fetch("http://localhost:3000/webresources/generic/moto/", {
           method: "PUT",
           body: JSON.stringify({
             id: document.getElementById("idUpdate").value,
@@ -413,77 +541,22 @@
         document.forms["formUpdate"].submit();
       }
     </script>
-
     <script>
-      let btnLogin = document.getElementById('btnLogin');
-      btnLogin.addEventListener("click", hacerLogin);
-      var myHeaders = new Headers();
-      myHeaders.append('Content-type', 'application/json; charset=UTF-8');
-      myHeaders.append('x-token', localStorage.getItem("token"));
-      function hacerLogin() {
-        fetch(getAbsolutePath() + 'login', {
-          method: 'POST',
-          body: JSON.stringify({
-            correo: document.getElementById('correo').value,
-            password: document.getElementById('password').value
-          }),
-          headers: myHeaders
-        })
-          .then((response) => response.json())
-          .then((json) => {
-            if (json.token) {
-              localStorage.setItem('token', json.token);
-              window.location.href = getAbsolutePath() + "productos.html";
-            }
-          })
-
-      }
-
-      function handleCredentialResponse(response) {
-            console.log(response.credential);
-            const body = {
-                'id_token': response.credential
-            }
-            fetch("http://localhost:3000/google", {
-                    method: "POST",
-                    body: JSON.stringify(body),
-                    headers: {
-                        "Content-type": "application/json; charset=UTF-8",
-                    },
-                })
-                .then((response) => response.json())
-                .then((json) => {
-                    console.log(json);
-                    localStorage.setItem('token', json.token);
-                    alertify.success("Login correcto");
-                });
-        }
-
-
-      function addTokenHeader(token) {
-        localStorage.setItem("token", token);
-        myHeaders.append('x-token', token);
-      }
-      function getAbsolutePath() {
-        var loc = window.location;
-        var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
-        return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
-      }
-
-
-
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">
-      // Hamburger menu
       document.addEventListener("click", function (e) {
-
+        // Hamburger menu
         if (e.target.classList.contains("hamburger-toggle")) {
           e.target.children[0].classList.toggle("active");
         }
       });
     </script>
-
-
-</body>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("click", function (e) {
+    // Hamburger menu
+    if (e.target.classList.contains("hamburger-toggle")) {
+      e.target.children[0].classList.toggle("active");
+    }
+  });
+</script>
+  </body>
 </html>

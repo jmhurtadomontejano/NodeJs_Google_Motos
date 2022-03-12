@@ -1,3 +1,4 @@
+const {response,request} = require('express');
 const jwt = require('jsonwebtoken');
 const generarJWT = ( id = '' ) => {
     return new Promise( (resolve, reject) => {

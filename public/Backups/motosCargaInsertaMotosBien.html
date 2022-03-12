@@ -5,11 +5,7 @@
   <title>Concesionario</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!DOCTYPE html>
-  <html lang="en">
 
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>NODEJS MOTOS Y LOGIN DE GOOGLE</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
@@ -22,20 +18,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 
-    <!-- Google Fonts -->
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&amp;display=swap" />
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
     <!-- CSS PROPIO EN PUBLIC/CSS/STYLE.CSS-->
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -44,7 +30,7 @@
   <main>
     <!-- Start Menu HTML -->
     <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #AC93D2;">
-      <div class="container-fluid">
+      <div class="container-fluid p-0 m-0">
         <a class="navbar-brand" href="index.html">
           <h2> INDEX</h2>
         </a>
@@ -61,7 +47,7 @@
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
 
             <li class="nav-item">
-              <a class="nav-link d-flex" aria-current="page" href="motos.html">
+              <a class="nav-link active d-flex" aria-current="page" href="motos.html">
                 <i class="fas fa-motorcycle align-middle" style="font-size: 30px"></i>
                 <h2>Motos</h2>
               </a>
@@ -73,29 +59,45 @@
               </a>
             </li>
           </ul>
-          <div class="d-flex ms-auto">
-            <div class="fadeIn first">
-              <h2>Login</h2>
-              <input type="email" id="email" class="fadeIn second w-100" name="email" placeholder="email">
-              <input type="password" id="password" class="fadeIn third w-100" name="password" placeholder="password">
-              <div class="w-100">
-                <button id="btnLogin" class="fadeIn fourth w-100">Login</button>
-              </div>
+          <form class="d-flex ms-auto">
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+            <div id="g_id_onload"
+              data-client_id="268016406036-a9c9r09qt2d08jll5v8ejgslpj7bs6v1.apps.googleusercontent.com"
+              data-auto_prompt="false" data-callback="handleCredentialResponse">
             </div>
-
-            <form class="card-footer ms-auto">
-              <script src="https://accounts.google.com/gsi/client" async defer></script>
-              <div id="g_id_onload"
-                data-client_id="268016406036-a9c9r09qt2d08jll5v8ejgslpj7bs6v1.apps.googleusercontent.com"
-                data-auto_prompt="false" data-callback="handleCredentialResponse">
-              </div>
-              <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
-                data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
-              </div>
-              <button id="cerrar-sesion-google" class="w-100">Cerrar Sesión</button>
-            </form>
-          </div>
-
+            <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
+              data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
+            </div>
+            <button id="cerrar-sesion-google">Cerrar Sesión</button>
+            <script>
+              var boton = document.getElementById("cerrar-sesion-google");
+              boton.addEventListener("click", function () {
+                google.accounts.id.disableAutoSelect();
+                google.accounts.id.revoke(localStorage.getItem("email"));
+                localStorage.clear();
+                location.reload();
+              })
+              function handleCredentialResponse(response) {
+                // decodeJwtResponse() is a custom function defined by you
+                // to decode the credential response.
+                console.log(response.credential);
+                const body = { 'id_token': response.credential }
+                fetch('http://localhost:3000/google', {
+                  method: 'POST',
+                  body: JSON.stringify(body),
+                  headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                  },
+                })
+                  .then((response) => response.json())
+                  .then((json) => {
+                    console.log(json);
+                    localStorage.setItem("email", json.miusuario.correo)
+                    localStorage.setItem("token", body.id_token)
+                  });
+              }
+            </script>
+          </form>
         </div>
       </div>
     </nav>
@@ -178,7 +180,7 @@
           <div class="modal-body">
             <form id="formUpdate" enctype="multipart/form-data" action="Save" method="post">
               <input type="hidden" id="idUpdate" />
-              <input type="hidden" id="actionUpdate" name="actionUpdate" value="update" />
+              <input type="hidden" id="action" name="action" value="update" />
               <div class="form-group">
                 <label for="marcaInsert">Marca:</label>
                 <input type="text" class="form-control" id="marcaUpdate" name="marcaUpdate"
@@ -229,6 +231,13 @@
         .getElementById("btnUpdate")
         .addEventListener("click", updateMoto);
 
+
+      function getAbsolutePath() {
+        var loc = window.location;
+        var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+        return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+      }
+
       function clearInsert() {
         document.getElementById("marcaInsert").value = "";
         document.getElementById("modeloInsert").value = "";
@@ -238,7 +247,13 @@
 
       function cargaMoto() {
         let id = document.getElementById("idCargar").value;
-        fetch("http://localhost:3000/webresources/generic/motos/" + id)
+        fetch(getAbsolutePath() + 'webresources/generic/motos/'+id, {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            'x-token': token
+          },
+        })
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -253,7 +268,13 @@
 
       function cargaMotos() {
         let tabla = document.getElementById("tabla");
-        fetch("http://localhost:3000/webresources/generic/motos/")
+        fetch(getAbsolutePath() + 'webresources/generic/motos/', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            'x-token': token
+          },
+        })
           .then((response) => response.json())
           .then((json) => {
             console.log(json);
@@ -356,7 +377,7 @@
         for (let i = 0; i < imagen.files.length; i++) {
           formData.append("imagen", imagen.files[i]);
         }
-        fetch(getAbsolutePath() + 'webresources/generic/motos/', {
+        fetch("http://localhost:3000/webresources/generic/motos/", {
           method: "post",
           body: formData,
         })
@@ -369,15 +390,20 @@
 
       function borrarMoto(id) {
         if (confirm("¿Está seguro/a de que quiere eliminar la moto?")) {
-            fetch(getAbsolutePath() + 'webresources/generic/motos/' + id, {
-            method: "DELETE",
-          });
-          cargaMotos();
-          return true;
-        } else {
-          return false;
+                fetch(getAbsolutePath() + 'webresources/generic/motos/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                        'x-token': token
+                    }
+                });
+                cargarAutomoviles();
+                return true;
+            } else {
+                return false;
+            }
+            cargaMotos()
         }
-      }
 
       function openUpdate(id) {
         fetch("http://localhost:3000/webresources/generic/motos/" + id)
@@ -413,77 +439,23 @@
         document.forms["formUpdate"].submit();
       }
     </script>
-
     <script>
-      let btnLogin = document.getElementById('btnLogin');
-      btnLogin.addEventListener("click", hacerLogin);
-      var myHeaders = new Headers();
-      myHeaders.append('Content-type', 'application/json; charset=UTF-8');
-      myHeaders.append('x-token', localStorage.getItem("token"));
-      function hacerLogin() {
-        fetch(getAbsolutePath() + 'login', {
-          method: 'POST',
-          body: JSON.stringify({
-            correo: document.getElementById('correo').value,
-            password: document.getElementById('password').value
-          }),
-          headers: myHeaders
-        })
-          .then((response) => response.json())
-          .then((json) => {
-            if (json.token) {
-              localStorage.setItem('token', json.token);
-              window.location.href = getAbsolutePath() + "productos.html";
-            }
-          })
-
-      }
-
-      function handleCredentialResponse(response) {
-            console.log(response.credential);
-            const body = {
-                'id_token': response.credential
-            }
-            fetch("http://localhost:3000/google", {
-                    method: "POST",
-                    body: JSON.stringify(body),
-                    headers: {
-                        "Content-type": "application/json; charset=UTF-8",
-                    },
-                })
-                .then((response) => response.json())
-                .then((json) => {
-                    console.log(json);
-                    localStorage.setItem('token', json.token);
-                    alertify.success("Login correcto");
-                });
-        }
-
-
-      function addTokenHeader(token) {
-        localStorage.setItem("token", token);
-        myHeaders.append('x-token', token);
-      }
-      function getAbsolutePath() {
-        var loc = window.location;
-        var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
-        return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
-      }
-
-
-
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">
-      // Hamburger menu
       document.addEventListener("click", function (e) {
-
+        // Hamburger menu
         if (e.target.classList.contains("hamburger-toggle")) {
           e.target.children[0].classList.toggle("active");
         }
       });
     </script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("click", function (e) {
+        // Hamburger menu
+        if (e.target.classList.contains("hamburger-toggle")) {
+          e.target.children[0].classList.toggle("active");
+        }
+      });
+    </script>
 </body>
 
 </html>
