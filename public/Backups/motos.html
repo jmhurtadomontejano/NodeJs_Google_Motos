@@ -2,20 +2,27 @@
 <html>
 
 <head>
-  <title>NODEJS MOTOS Y LOGIN DE GOOGLE</title>
+  <title>Concesionario</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!DOCTYPE html>
+  <html lang="en">
 
-    
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NODEJS MOTOS Y LOGIN DE GOOGLE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
 
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
@@ -270,7 +277,7 @@
           method: 'GET',
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
-          //  'x-token': token
+            'x-token': token
           },
         })
           .then((response) => response.json())
@@ -314,7 +321,7 @@
               let celdaModelo = document.createElement("td");
               celdaModelo.textContent = json[i].modelo;
               let celdaCilindrada = document.createElement("td");
-              celdaCilindrada.textContent = json[i].cilindrada + "cc";
+              celdaCilindrada.textContent = json[i].cilindrada + " c.c.";
               let celdaImagen = document.createElement("td");
               //Creamos la etiqueta imagen
               let img = document.createElement("img");
@@ -363,27 +370,7 @@
       }
 
       function insertMoto() {
-              /*  fetch(getAbsolutePath() + 'webresources/generic/motos/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                        'x-token': token
-                    },
-                    body: JSON.stringify({
-                        marca: document.getElementById("marcaInsert").value,
-                        modelo: document.getElementById("modeloInsert").value,
-                        cilindrada: document.getElementById("cilindradaInsert").value,
-                        foto: document.getElementById("imagenInsert").value,
-                     //   precio: document.getElementById("precioInsert").value
-                    })
-                })
-                .then((response) => response.json())
-                .then((json) => console.log(json));
-            cargaMotos();
-        */
-        
-        
-        //FormData FUNCIONA E INSERTA
+        //FormData
         const marca = document.getElementById("marcaInsert");
         const modelo = document.getElementById("modeloInsert");
         const cilindrada = document.getElementById("cilindradaInsert");
@@ -395,25 +382,24 @@
         for (let i = 0; i < imagen.files.length; i++) {
           formData.append("imagen", imagen.files[i]);
         }
-        fetch(getAbsolutePath() + 'webresources/generic/motos/', {
+        fetch("http://localhost:3000/webresources/generic/motos/", {
           method: "post",
           body: formData,
         })
- 
           .then((res) => console.log(res))
           .catch((err) => ("Error occured", err));
-          
+
         //Enviamos el formulario que tenemos en la vista para insertar y tratar el archivo.
         //document.forms['formInsert'].submit();
-        cargaMotos();
       }
+
       function borrarMoto(id) {
         if (confirm("¿Está seguro/a de que quiere eliminar la moto?")) {
-          fetch(getAbsolutePath() + 'webresources/generic/motos/' + id, {
+                fetch(getAbsolutePath() + 'webresources/generic/motos/' + id, {
                     method: 'DELETE',
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8',
-                       // 'x-token': token
+                        'x-token': token
                     }
                 });
                 cargaMotos();
@@ -433,7 +419,7 @@
             document.getElementById("marcaUpdate").value = json.marca;
             document.getElementById("modeloUpdate").value = json.modelo;
             document.getElementById("cilindradaUpdate").value = json.cilindrada;
-            document.getElementById("imagenUpdate").value = json.imagen;
+          //  document.getElementById("imagenUpdate").value = json.imagen;
           });
       }
 
@@ -458,9 +444,20 @@
       }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>  // Hamburger menu
+
+
+    <script>
       document.addEventListener("click", function (e) {
+        // Hamburger menu
+        if (e.target.classList.contains("hamburger-toggle")) {
+          e.target.children[0].classList.toggle("active");
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("click", function (e) {
+        // Hamburger menu
         if (e.target.classList.contains("hamburger-toggle")) {
           e.target.children[0].classList.toggle("active");
         }
