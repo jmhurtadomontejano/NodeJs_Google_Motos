@@ -10,7 +10,7 @@
         background-color: #ac93d2;      
 }
 
-.banner, .banner-moto{
+.banner, .banner-moto {
     position: relative;
     width: 100%;
     height: calc(100vh - 56px);
@@ -20,7 +20,12 @@
     transition: all .1s ease-in-out;
     background-image: url('../imagenes/tienda.jpg');
     opacity: 0.8;
-    color:white;
+    
+}
+
+
+
+bg-image {opacity:0,2;
 }
 
 .banner-content{

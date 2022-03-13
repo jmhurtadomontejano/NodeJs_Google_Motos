@@ -85,7 +85,7 @@
     </nav>
     <!-- END Mega Menu HTML -->
   </main>
-
+  <section class="banner-moto">
 
   <div class="d-flex flex-wrap justify-content-around display col-12">
     <button class="btn-primary col-5 m-1 col-sm-2" id="btnOpenInsert" type="button" class="btn btn-primary"
@@ -104,7 +104,10 @@
         Cargar Moto ID
       </button>
     </div>
-
+    <div class="table-resposive">
+    <table id="tabla" class="table justify-content-center bg-light bg-opacity-75"></table>
+  </div>
+  </section>
 
     <!-- Modal insert -->
     <div class="modal fade" id="insert" tabindex="-1" role="dialog" aria-labelledby="insertLabel" aria-hidden="true">
@@ -393,14 +396,13 @@
         fetch(getAbsolutePath() + 'webresources/generic/motos/', {
           method: "post",
           body: formData,
-        });
-        cargaMotos()
+        })
           .then((res) => console.log(res))
           .catch((err) => ("Error occured", err));
           
         //Enviamos el formulario que tenemos en la vista para insertar y tratar el archivo.
         //document.forms['formInsert'].submit();
-    
+        cargaMotos();
       }
       function borrarMoto(id) {
         if (confirm("¿Está seguro/a de que quiere eliminar la moto?")) {
