@@ -5,6 +5,7 @@ const generarJWT = ( id = '' ) => {
 
         const payload = { id };
 
+      //  jwt.sign( payload, process.env.SECRETORPRIVATEKEY, {   NO ME FUNCIONA CON SECRETOPRIVATEKEY
         jwt.sign( payload,'JuanMiguelHurtado', {
             expiresIn: '4h'
         }, ( err, token ) => {

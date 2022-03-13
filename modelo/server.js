@@ -315,7 +315,7 @@ class Server {
     });
     */
     
-       this.app.post("/webresources/generic/motos", function (req, res) { 
+       this.app.post("/webresources/generic/motos", validarJWT, function (req, res) { 
        const archivo = req.files.imagen;
           //*nombreCortado será un array de trozos separados(split) por puntos punto 7.1 Jose Luis
           const nombreCortado = archivo.name.split(".");
