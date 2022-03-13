@@ -213,18 +213,7 @@
         .getElementById("btnUpdate")
         .addEventListener("click", updateMoto);
 
-        var boton = document.getElementById("cerrar-sesion-google");
-        boton.addEventListener("click", function () {
-          fetch('http://localhost:3000/logout')
-          .then(res => res.json())
-          .then(data => {
-            google.accounts.id.disableAutoSelect();
-            google.accounts.id.revoke(localStorage.getItem("email"));
-            localStorage.clear();
-            location.reload();
-          })
-            
-        })
+
       function getAbsolutePath() {
         var loc = window.location;
         var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
@@ -261,7 +250,7 @@
 
       function cargaMotos() {
         let tabla = document.getElementById("tabla");
-        fetch('http://localhost:3000/webresources/generic/motos/', {
+        fetch(getAbsolutePath() + 'webresources/generic/motos/', {
           method: 'GET',
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -393,14 +382,14 @@
         fetch(getAbsolutePath() + 'webresources/generic/motos/', {
           method: "post",
           body: formData,
-        });
-        cargaMotos()
+        })
+ 
           .then((res) => console.log(res))
           .catch((err) => ("Error occured", err));
           
         //Enviamos el formulario que tenemos en la vista para insertar y tratar el archivo.
         //document.forms['formInsert'].submit();
-    
+        cargaMotos();
       }
       function borrarMoto(id) {
         if (confirm("¿Está seguro/a de que quiere eliminar la moto?")) {

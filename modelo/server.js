@@ -11,6 +11,7 @@ const { generarJWT } = require("../helpers/generarJWT");
 const { validarJWT } = require("../middleware/validar-JWT");
 const { OAuth2Client } = require("google-auth-library");
 const fileUpload = require("express-fileupload");
+const cookie_parse = require("cookie-parser");
 
 //cifrar nombre archivo para que sea unico, punto 7.2 de Base NodeJS
 const { v4: uuidv4 } = require("uuid"); //lo renombramos a uuidv4
@@ -27,6 +28,7 @@ class Server {
     /*FILTRAN LA SOLICITUD; HACEN ALGO Y DEVULEVEN RESPUESTAS */
     this.app.use(express.json()); //Middleware para leer json;
     this.app.use(express.static("public"));    //^Middleware para servir la carpeta public
+    this.app.use(cookie_parse());    //^Middleware para servir la carpeta public
 
     /*Middleware para cargar una imagen a un archivoTemporal */
     this.app.use(
@@ -73,7 +75,11 @@ class Server {
         const nombreTemp = uuidv4() + "." + extension;
         const path = require("path"); //esto es de nodejs
 
-        const uploadPath = path.join(__dirname,"../public/imagenes/", nombreTemp);
+        const uploadPath = path.join(
+          __dirname,
+          "../public/imagenes/",
+          nombreTemp
+        );
         archivo.mv(uploadPath, function (err) {
           if (err) {
             return res.status(500).json(err);
@@ -91,14 +97,14 @@ class Server {
       "/google",
       check("id_token", "El token es necesario").not().isEmpty(),
       async function (req, res) {
+        const { id_token } = req.body;
         const erroresVal = validationResult(req);
         //comprueba si ha habido errores en los checks
         if (!erroresVal.isEmpty()) {
           return res.status(400).json({ msg: erroresVal.array() });
         }
-        try {
+        //try {
           //******** COMPRUEBO EL TOKEN *************/
-          const { OAuth2Client } = require("google-auth-library");
           const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
           const ticket = await client.verifyIdToken({
@@ -138,20 +144,25 @@ class Server {
           const id = miusuario.id;
 
           //******** ENVÍO UN RESPUESTA */
-          res.json({
+          res
+          .cookie("access_token",tokenGenerado,{
+            httpOnly: true,
+            secure: true
+          })
+          .json({
             msg: "Todo bien con Google",
             id_token,
             token: tokenGenerado,
             miusuario,
           });
-        } catch (error) {
-          //******** ENVÍO UN RESPUESTA */
-          res.json({
-            msg: "TODO MAL con Google. ERROR DE VERIFICACION",
+        // } catch (error) {
+        //   //******** ENVÍO UN RESPUESTA */
+        //   res.json({
+        //     msg: "TODO MAL con Google. ERROR DE VERIFICACION",
 
-          });
-        }
-        //  const { id_token } = req.body;
+        //   });
+        // }
+        //  
       }
     );
 
@@ -189,7 +200,12 @@ class Server {
               //genero el TOKEN JWT propio
               const token = await generarJWT(miusuario.id);
               const id = miusuario.id;
-              res.json({
+              res
+              .cookie("access_token",token,{
+                httpOnly: true,
+                secure: true
+              })
+              .json({
                 msg: "Login OK",
                 token,
                 id,
@@ -204,6 +220,13 @@ class Server {
         }
       }
     );
+
+    this.app.get("/logout", async function (req, res) {
+      const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+      //await OAuth2Client.revokeCredentials;
+      res.clearCookie("access_token").json({msg: "done"});
+
+    })
 
     /******* RUTAS DEL PRODUCTO *****/
     this.app.get(
@@ -272,7 +295,7 @@ class Server {
         res.json(moto);
       }
     );
-    this.app.get("/webresources/generic/motos", async function (req, res) {
+    this.app.get("/webresources/generic/motos",validarJWT, async function (req, res) {
       let motos = await Moto.find();
       res.json(
         motos
@@ -344,7 +367,7 @@ class Server {
       });
     });
     //delete motos
-    this.app.delete('/webresources/generic/motos/:id', /*validarJWT,*/ async function (req, res) {
+    this.app.delete('/webresources/generic/motos/:id',  async function (req, res) {
         const id = req.params.id;
         await Moto.findByIdAndDelete(id);
         res.status(200).json({

@@ -1,14 +1,14 @@
 const express = require("express");
 require("dotenv").config();
-const { dbConnection } = require("../database/config");
-const Usuario = require("./usuario");
-const Producto = require("./producto");
-const Rol = require("./rol");
-const Moto = require("./Moto");
+const { dbConnection } = require("../../database/config");
+const Usuario = require("../../modelo/usuario");
+const Producto = require("../../modelo/producto");
+const Rol = require("../../modelo/rol");
+const Moto = require("../../modelo/Moto");
 const bcryptjs = require("bcryptjs");
 const { body, validationResult, check } = require("express-validator");
-const { generarJWT } = require("../helpers/generarJWT");
-const { validarJWT } = require("../middleware/validar-JWT");
+const { generarJWT } = require("../../helpers/generarJWT");
+const { validarJWT } = require("../../middleware/validar-JWT");
 const { OAuth2Client } = require("google-auth-library");
 const fileUpload = require("express-fileupload");
 
@@ -128,8 +128,6 @@ class Server {
           }
           // If request specified a G Suite domain:
           // const domain = payload['hd'];
-
-
 
           /*GENERO UN TOKEN VALIDO */
           const tokenGenerado = await generarJWT(miusuario.id);
