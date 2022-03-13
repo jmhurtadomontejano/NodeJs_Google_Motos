@@ -103,7 +103,7 @@ class Server {
         if (!erroresVal.isEmpty()) {
           return res.status(400).json({ msg: erroresVal.array() });
         }
-        try {
+        //try {
           //******** COMPRUEBO EL TOKEN *************/
           const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -155,66 +155,18 @@ class Server {
             token: tokenGenerado,
             miusuario,
           });
-         } catch (error) {
-           //******** ENVÍO UN RESPUESTA */
-           res.json({
-             msg: "TODO MAL con Google. ERROR DE VERIFICACION",
+        // } catch (error) {
+        //   //******** ENVÍO UN RESPUESTA */
+        //   res.json({
+        //     msg: "TODO MAL con Google. ERROR DE VERIFICACION",
 
-           });
-         }
+        //   });
+        // }
       }
     );
 
     /******* RUTAS DEL LOGIN *****/
-    this.app.post("/login",
-            check("correo", "El correo no es válido").isEmail(),
-            check("password", "La contraseña no puede ser vacía").not().isEmpty(),
-            async function(req, res) {
-                const erroresVal = validationResult(req);
-                //comprueba si ha habido errores en los checks
-                if (!erroresVal.isEmpty()) {
-                    return res.status(400).json({ msg: erroresVal.array() });
-                }
-                const { correo, password } = req.body;
-                try {
-                    //verifico si el correo existe en la BD
-                    const miusuario = await Usuario.findOne({ correo });
-                    if (!miusuario) {
-                        res.status(400).json({
-                            msg: "El correo no existe",
-                            correo,
-                        });
-                    } else {
-                        //verifico la contraseña
-                        const validPassword = bcryptjs.compareSync(
-                            password,
-                            miusuario.password
-                        );
-                        if (!validPassword) {
-                            res.status(400).json({
-                                msg: "El password no es correcto",
-                            });
-                        } else {
-                            //genero el JWT
-                            const token = await generarJWT(miusuario.id);
-                            const id = miusuario.id;
-                            res.json({
-                                msg: "ok",
-                                token,
-                                id,
-                            });
-                        }
-                    }
-                } catch (error) {
-                    console.log(error);
-                    res.status(500).json({
-                        msg: "Error de autenticación",
-                    });
-                }
-            }
-        );
-  
-  /*  this.app.post(
+    this.app.post(
       "/login",
       check("correo", "El correo no es válido").isEmail(),
       check("password", "La contraseña no puede ser vacía").not().isEmpty(),
@@ -257,7 +209,7 @@ class Server {
       //          token,
        //         id,
       //        });
-       //******** ENVÍO UN RESPUESTA 
+       //******** ENVÍO UN RESPUESTA */
        res
        .cookie("access_token",tokenGenerado,{
          httpOnly: true,
@@ -279,8 +231,6 @@ class Server {
         }
       }
     );
-*/
-
 
     this.app.get("/logout", async function (req, res) {
       const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);

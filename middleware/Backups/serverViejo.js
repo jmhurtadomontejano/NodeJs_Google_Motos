@@ -8,7 +8,7 @@ const Moto = require("../../modelo/Moto");
 const bcryptjs = require("bcryptjs");
 const { body, validationResult, check } = require("express-validator");
 const { generarJWT } = require("../../helpers/generarJWT");
-const { validarJWT } = require("../../middleware/validar-JWT");
+const { validarJWT } = require("../validar-JWT");
 const { OAuth2Client } = require("google-auth-library");
 const fileUpload = require("express-fileupload");
 
